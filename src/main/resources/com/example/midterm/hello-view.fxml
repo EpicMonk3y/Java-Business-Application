@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1001.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.midterm.HelloController">
+   <children>
+      <MenuBar layoutY="-2.0" prefHeight="29.0" prefWidth="1001.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Filter">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Order Total" />
+                  <MenuItem mnemonicParsing="false" text="Order Details" />
+                  <MenuItem mnemonicParsing="false" text="Customer Information" />
+                  <MenuItem mnemonicParsing="false" text="Employees" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Exit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Instructions" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ScrollPane layoutX="267.0" layoutY="27.0">
+         <content>
+            <TableView fx:id="ordersTotalTable" prefHeight="564.0" prefWidth="707.0">
+              <columns>
+                <TableColumn fx:id="orderTotalOrderNumberColumn" prefWidth="100.0" text="Order Number" />
+                <TableColumn fx:id="orderTotalColumn" prefWidth="91.0" text="Total" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Label layoutX="60.0" layoutY="44.0" text="Enter an Order Number" />
+      <TextField fx:id="orderTotalOrderNumberTF" layoutX="48.0" layoutY="73.0" />
+      <Button layoutX="88.0" layoutY="107.0" mnemonicParsing="false" onAction="#filterTotal" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+   </children>
+</AnchorPane>
