@@ -14,7 +14,6 @@ public class HelloController {
     @FXML
     private TextField orderTotalOrderNumberTF;
 
-
     @FXML
     private TableColumn<Total, Double> orderTotalColumn;
     @FXML
@@ -30,11 +29,9 @@ public class HelloController {
     ObservableList<Total> list;
 
     @FXML
-    private void initialize() throws ClassNotFoundException, SQLException {
+    private void initialize() throws ClassNotFoundException{
         createConnection();
         list = FXCollections.observableArrayList();
-        orderTotalOrderNumberColumn.setCellValueFactory(new PropertyValueFactory<Total,Integer>("orderId"));
-        orderTotalColumn.setCellValueFactory(new PropertyValueFactory<Total,Double>("total"));
     }
 
 
@@ -64,7 +61,8 @@ public class HelloController {
             list.add(new Total(resultSet.getInt(1), resultSet.getDouble(2)));
         }
 
-
+        orderTotalOrderNumberColumn.setCellValueFactory(new PropertyValueFactory<Total,Integer>("orderId"));
+        orderTotalColumn.setCellValueFactory(new PropertyValueFactory<Total,Double>("total"));
         ordersTotalTable.setItems(list);
     }
 }
