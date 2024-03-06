@@ -17,10 +17,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="Filter">
             <items>
-              <MenuItem mnemonicParsing="false" text="Order Total" />
-                  <MenuItem mnemonicParsing="false" text="Order Details" />
-                  <MenuItem mnemonicParsing="false" text="Customer Information" />
-                  <MenuItem mnemonicParsing="false" text="Employees" />
+              <MenuItem fx:id="orderTotalFilter" mnemonicParsing="false" text="Order Total" />
+                  <MenuItem fx:id="orderDetailsFilter" mnemonicParsing="false" text="Order Details" />
+                  <MenuItem fx:id="customerInformationFilter" mnemonicParsing="false" text="Customer Information" />
+                  <MenuItem fx:id="employeesFilter" mnemonicParsing="false" text="Employees" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Exit">
@@ -35,18 +35,42 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ScrollPane layoutX="267.0" layoutY="27.0">
-         <content>
-            <TableView fx:id="ordersTotalTable" prefHeight="564.0" prefWidth="707.0">
-              <columns>
-                <TableColumn fx:id="orderTotalOrderNumberColumn" prefWidth="100.0" text="Order Number" />
-                <TableColumn fx:id="orderTotalColumn" prefWidth="91.0" text="Total" />
-              </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
-      <Label layoutX="60.0" layoutY="44.0" text="Enter an Order Number" />
-      <TextField fx:id="orderTotalOrderNumberTF" layoutX="48.0" layoutY="73.0" />
-      <Button layoutX="88.0" layoutY="107.0" mnemonicParsing="false" onAction="#filterTotal" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+      <AnchorPane fx:id="orderTotalAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
+         <children>
+            <ScrollPane layoutX="269.0">
+               <content>
+                  <TableView fx:id="ordersTotalTable" prefHeight="564.0" prefWidth="707.0">
+                    <columns>
+                      <TableColumn fx:id="orderTotalOrderNumberColumn" prefWidth="100.0" text="Order Number" />
+                      <TableColumn fx:id="orderTotalColumn" prefWidth="91.0" text="Total" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Label layoutX="47.0" layoutY="31.0" text="Enter an Order Number" />
+            <TextField fx:id="orderTotalOrderNumberTF" layoutX="35.0" layoutY="61.0" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterTotal" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="orderDetailsAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0">
+         <children>
+            <ScrollPane layoutX="269.0" prefHeight="566.0" prefWidth="709.0">
+               <content>
+                  <TableView fx:id="ordersDetailsTable" prefHeight="564.0" prefWidth="707.0">
+                     <columns>
+                        <TableColumn fx:id="orderDateColumn" prefWidth="100.0" text="Order Date" />
+                        <TableColumn fx:id="orderFreightChargeColumn" prefWidth="91.0" text="Freight Charge" />
+                        <TableColumn fx:id="orderProductColumn" prefWidth="91.0" text="Product" />
+                        <TableColumn fx:id="orderQuantityColumn" prefWidth="91.0" text="Quantity" />
+                        <TableColumn fx:id="orderUnitPriceColumn" prefWidth="91.0" text="Unit Price" />
+                     </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Label layoutX="47.0" layoutY="31.0" text="Enter an Order Number" />
+            <TextField fx:id="orderNumberOrderDetailsTF" layoutX="35.0" layoutY="61.0" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterOrderDetails" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
