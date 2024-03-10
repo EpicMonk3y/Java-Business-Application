@@ -4,14 +4,12 @@ import java.util.Date;
 
 public class OrderDetails {
     private Date orderDate;
-    private double freightCharge;
     private String product;
     private int quantity;
     private double unitPrice;
 
     public OrderDetails(Date orderDate, String product, int quantity, double unitPrice) {
         this.orderDate = orderDate;
-        //this.freightCharge = freightCharge;
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
@@ -24,14 +22,6 @@ public class OrderDetails {
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
-
-    /*public double getFreightCharge() {
-        return freightCharge;
-    }*/
-
-    /*public void setFreightCharge(double freightCharge) {
-        this.freightCharge = freightCharge;
-    }*/
 
     public String getProduct() {
         return product;

@@ -2,12 +2,12 @@ package com.example.midterm;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.*;
 import java.text.NumberFormat;
@@ -26,7 +26,10 @@ public class HelloController {
     private MenuItem customerInformationFilter;
 
     @FXML
-    private MenuItem employeesFilter ;
+    private MenuItem employeesFilter;
+
+    @FXML
+    private MenuBar menuBar;
     /*----------------------------------------*/
 
 
@@ -41,6 +44,9 @@ public class HelloController {
     private TableView<Total> ordersTotalTable;
     @FXML
     private TableColumn<Total,Integer> orderTotalOrderNumberColumn;
+
+    @FXML
+    private AnchorPane orderTotalAP;
     /*----------------------------------------*/
 
     // Get Order Details
@@ -55,9 +61,6 @@ public class HelloController {
     private TableColumn<OrderDetails, Date> orderDateColumn;
 
     @FXML
-    private TableColumn<OrderDetails,Double> orderFreightCharge;
-
-    @FXML
     private TableColumn<OrderDetails,String> orderProductColumn;
 
     @FXML
@@ -65,6 +68,9 @@ public class HelloController {
 
     @FXML
     private TableColumn<OrderDetails,Double> orderUnitPriceColumn;
+
+    @FXML
+    private AnchorPane orderDetailsAP;
 
     NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -77,11 +83,19 @@ public class HelloController {
     @FXML
     private void initialize() throws ClassNotFoundException{
         createConnection();
+        changeLayout();
 
     }
 
     private void changeLayout(){
+        orderTotalFilter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderTotalAP.setVisible(true);
+                orderDetailsAP.setVisible(false);
 
+            }
+        });
     }
 
 
@@ -133,6 +147,16 @@ public class HelloController {
         orderQuantityColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,Integer>("quantity"));
         orderUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,Double>("unitPrice"));
         ordersDetailsTable.setItems(details);
+    }
+
+    @FXML
+    protected void filterCustomerByState() {
+
+    }
+
+    @FXML
+    protected void exit(){
+        System.exit(0);
     }
 }
 

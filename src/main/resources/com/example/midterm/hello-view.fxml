@@ -25,7 +25,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Exit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -52,14 +52,13 @@
             <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterTotal" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderDetailsAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0">
+      <AnchorPane fx:id="orderDetailsAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
          <children>
             <ScrollPane layoutX="269.0" prefHeight="566.0" prefWidth="709.0">
                <content>
                   <TableView fx:id="ordersDetailsTable" prefHeight="564.0" prefWidth="707.0">
                      <columns>
                         <TableColumn fx:id="orderDateColumn" prefWidth="100.0" text="Order Date" />
-                        <TableColumn fx:id="orderFreightChargeColumn" prefWidth="91.0" text="Freight Charge" />
                         <TableColumn fx:id="orderProductColumn" prefWidth="91.0" text="Product" />
                         <TableColumn fx:id="orderQuantityColumn" prefWidth="91.0" text="Quantity" />
                         <TableColumn fx:id="orderUnitPriceColumn" prefWidth="91.0" text="Unit Price" />
@@ -70,6 +69,25 @@
             <Label layoutX="47.0" layoutY="31.0" text="Enter an Order Number" />
             <TextField fx:id="orderNumberOrderDetailsTF" layoutX="35.0" layoutY="61.0" />
             <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterOrderDetails" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="customerInfoAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0">
+         <children>
+            <ScrollPane layoutX="269.0" prefHeight="566.0" prefWidth="709.0">
+               <content>
+                  <TableView fx:id="ordersDetailsTable1" prefHeight="564.0" prefWidth="707.0">
+                     <columns>
+                        <TableColumn fx:id="orderDateColumn1" prefWidth="100.0" text="Order Date" />
+                        <TableColumn fx:id="orderProductColumn1" prefWidth="91.0" text="Product" />
+                        <TableColumn fx:id="orderQuantityColumn1" prefWidth="91.0" text="Quantity" />
+                        <TableColumn fx:id="orderUnitPriceColumn1" prefWidth="91.0" text="Unit Price" />
+                     </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Label layoutX="76.0" layoutY="31.0" text="Enter a State" />
+            <TextField fx:id="stateCustInfoTF" layoutX="35.0" layoutY="61.0" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByState" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
    </children>
