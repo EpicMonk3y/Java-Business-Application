@@ -72,13 +72,35 @@ public class HelloController {
     @FXML
     private AnchorPane orderDetailsAP;
 
+    /*----------------------------------------*/
+
+    // Get Customer Info
+    /*----------------------------------------*/
+
+    @FXML
+    private TextField customerInfoTF;
+
+    @FXML
+    private TableView<CustomerInfo> customersTable;
+
+    @FXML
+    private TableColumn<CustomerInfo, String> customerNameColumn;
+
+    @FXML
+    private TableColumn<CustomerInfo,String> customerCityColumn;
+
+    @FXML
+    private AnchorPane customerInfoAP;
+
     NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
 
     private Connection connection;
 
     ObservableList<Total> totals = FXCollections.observableArrayList();
-    ObservableList<OrderDetails> details = FXCollections.observableArrayList();
+    ObservableList<OrderDetails> orderDetails = FXCollections.observableArrayList();
+
+    ObservableList<CustomerInfo> customerDetails = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() throws ClassNotFoundException{
@@ -93,7 +115,27 @@ public class HelloController {
             public void handle(ActionEvent event) {
                 orderTotalAP.setVisible(true);
                 orderDetailsAP.setVisible(false);
+                customerInfoAP.setVisible(false);
 
+
+            }
+        });
+
+        orderDetailsFilter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderTotalAP.setVisible(false);
+                orderDetailsAP.setVisible(true);
+                customerInfoAP.setVisible(false);
+            }
+        });
+
+        customerInformationFilter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderTotalAP.setVisible(false);
+                orderDetailsAP.setVisible(false);
+                customerInfoAP.setVisible(true);
             }
         });
     }
@@ -136,22 +178,34 @@ public class HelloController {
         int orderNumber = Integer.parseInt(orderNumberOrderDetailsTF.getText());
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("Select OrderDate, ProductName, Quantity, Price from northwind.orders,northwind.orderdetails, northwind.products where northwind.orders.OrderID = '" + orderNumber + "' AND northwind.orderdetails.OrderID = northwind.orders.OrderID AND northwind.orderdetails.ProductID = northwind.products.ProductID");
+        ResultSet resultSet = statement.executeQuery("Select OrderDate, ProductName, Quantity, Price from orders,orderdetails, products where orders.OrderID = '" + orderNumber + "' AND orderdetails.OrderID = orders.OrderID AND orderdetails.ProductID = products.ProductID");
 
         while (resultSet.next()) {
-            details.add(new OrderDetails(resultSet.getDate(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getDouble(4)));
+            orderDetails.add(new OrderDetails(resultSet.getDate(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getDouble(4)));
         }
 
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,Date>("orderDate"));
         orderProductColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,String>("product"));
         orderQuantityColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,Integer>("quantity"));
         orderUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<OrderDetails,Double>("unitPrice"));
-        ordersDetailsTable.setItems(details);
+        ordersDetailsTable.setItems(orderDetails);
     }
 
     @FXML
-    protected void filterCustomerByState() {
+    protected void filterCustomerByState() throws SQLException {
+        customersTable.getItems().clear();
+        String country = customerInfoTF.getText();
 
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("Select CustomerName, City from northwind.customers where Country = '" + country + "' order by City");
+
+        while (resultSet.next()) {
+            customerDetails.add(new CustomerInfo(resultSet.getString(1), resultSet.getString(2)));
+        }
+
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<CustomerInfo,String>("customerName"));
+        customerCityColumn.setCellValueFactory(new PropertyValueFactory<CustomerInfo,String>("city"));
+        customersTable.setItems(customerDetails);
     }
 
     @FXML
