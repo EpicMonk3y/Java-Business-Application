@@ -197,7 +197,7 @@ public class HelloController {
         String country = customerInfoTF.getText();
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("Select CustomerName, City from northwind.customers where Country = '" + country + "' order by City");
+        ResultSet resultSet = statement.executeQuery("Select CustomerName, City from customers where Country = '" + country + "' order by City");
 
         while (resultSet.next()) {
             customerDetails.add(new CustomerInfo(resultSet.getString(1), resultSet.getString(2)));
