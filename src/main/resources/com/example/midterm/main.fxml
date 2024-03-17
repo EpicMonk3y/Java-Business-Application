@@ -35,7 +35,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="orderTotalAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
+      <AnchorPane fx:id="orderTotalAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0">
          <children>
             <ScrollPane layoutX="269.0">
                <content>
@@ -71,7 +71,7 @@
             <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterOrderDetails" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="customerInfoAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0">
+      <AnchorPane fx:id="customerInfoAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
          <children>
             <ScrollPane layoutX="269.0" prefHeight="566.0" prefWidth="709.0">
                <content>
@@ -86,6 +86,23 @@
             <Label layoutX="68.0" layoutY="31.0" text="Enter a Country" />
             <TextField fx:id="customerInfoTF" layoutX="35.0" layoutY="61.0" />
             <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByState" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="employeeInfoAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
+         <children>
+            <ScrollPane layoutX="269.0" prefHeight="566.0" prefWidth="709.0">
+               <content>
+                  <TableView fx:id="employeeNameTable" prefHeight="564.0" prefWidth="707.0">
+                     <columns>
+                        <TableColumn fx:id="employeeFirstNameColumn" prefWidth="140.0" text="First Name" />
+                        <TableColumn fx:id="employeeLastNameColumn" prefWidth="134.0" text="Last Name" />
+                     </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Label layoutX="78.0" layoutY="30.0" text="Enter a Year" />
+            <TextField fx:id="yearTF" layoutX="35.0" layoutY="61.0" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByBirthYear" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
    </children>

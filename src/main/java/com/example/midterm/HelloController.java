@@ -92,6 +92,25 @@ public class HelloController {
     @FXML
     private AnchorPane customerInfoAP;
 
+    // Get Customer Info
+    /*----------------------------------------*/
+
+    @FXML
+    private TextField yearTF;
+
+    @FXML
+    private TableView<EmployeeInfo> employeeNameTable;
+
+    @FXML
+    private TableColumn<EmployeeInfo, String> employeeFirstNameColumn;
+
+    @FXML
+    private TableColumn<EmployeeInfo, String> employeeLastNameColumn;
+
+    @FXML
+    private AnchorPane employeeInfoAP;
+    /*----------------------------------------*/
+
     NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
 
 
@@ -101,6 +120,8 @@ public class HelloController {
     ObservableList<OrderDetails> orderDetails = FXCollections.observableArrayList();
 
     ObservableList<CustomerInfo> customerDetails = FXCollections.observableArrayList();
+
+    ObservableList<EmployeeInfo> employeeDetails = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() throws ClassNotFoundException{
@@ -116,8 +137,7 @@ public class HelloController {
                 orderTotalAP.setVisible(true);
                 orderDetailsAP.setVisible(false);
                 customerInfoAP.setVisible(false);
-
-
+                employeeInfoAP.setVisible(false);
             }
         });
 
@@ -127,6 +147,7 @@ public class HelloController {
                 orderTotalAP.setVisible(false);
                 orderDetailsAP.setVisible(true);
                 customerInfoAP.setVisible(false);
+                employeeInfoAP.setVisible(false);
             }
         });
 
@@ -136,8 +157,21 @@ public class HelloController {
                 orderTotalAP.setVisible(false);
                 orderDetailsAP.setVisible(false);
                 customerInfoAP.setVisible(true);
+                employeeInfoAP.setVisible(false);
             }
         });
+
+        employeesFilter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                orderTotalAP.setVisible(false);
+                orderDetailsAP.setVisible(false);
+                customerInfoAP.setVisible(false);
+                employeeInfoAP.setVisible(true);
+            }
+        });
+
+
     }
 
 
@@ -207,6 +241,24 @@ public class HelloController {
         customerCityColumn.setCellValueFactory(new PropertyValueFactory<CustomerInfo,String>("city"));
         customersTable.setItems(customerDetails);
     }
+
+    @FXML
+    protected void filterCustomerByBirthYear() throws SQLException {
+        employeeNameTable.getItems().clear();
+        String year = yearTF.getText();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("Select FirstName, LastName from Northwind.employees where substring(BirthDate,1,4) = '" + year + "' order by LastName");
+
+        while (resultSet.next()) {
+            employeeDetails.add(new EmployeeInfo(resultSet.getString(1), resultSet.getString(2)));
+        }
+
+        employeeFirstNameColumn.setCellValueFactory(new PropertyValueFactory<EmployeeInfo,String>("firstName"));
+        employeeLastNameColumn.setCellValueFactory(new PropertyValueFactory<EmployeeInfo,String>("lastName"));
+        employeeNameTable.setItems(employeeDetails);
+    }
+
 
     @FXML
     protected void exit(){
