@@ -10,8 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.*;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class HelloController {
     // Menu Items
@@ -23,10 +21,10 @@ public class HelloController {
     private MenuItem orderDetailsFilter;
 
     @FXML
-    private MenuItem customerInformationFilter;
+    private MenuItem customerICountryFilter;
 
     @FXML
-    private MenuItem employeesFilter;
+    private MenuItem employeesBirthYearFilter;
 
     @FXML
     private MenuBar menuBar;
@@ -42,14 +40,13 @@ public class HelloController {
     private TableColumn<Total, Double> orderTotalColumn;
     @FXML
     private TableView<Total> ordersTotalTable;
-    @FXML
-    private TableColumn<Total,Integer> orderTotalOrderNumberColumn;
+
 
     @FXML
     private AnchorPane orderTotalAP;
     /*----------------------------------------*/
 
-    // Get Order Details
+    // Get Order Details  Id's
     /*----------------------------------------*/
     @FXML
     private TextField orderNumberOrderDetailsTF;
@@ -74,7 +71,7 @@ public class HelloController {
 
     /*----------------------------------------*/
 
-    // Get Customer Info
+    // Get Customer Info  Id's
     /*----------------------------------------*/
 
     @FXML
@@ -92,7 +89,7 @@ public class HelloController {
     @FXML
     private AnchorPane customerInfoAP;
 
-    // Get Customer Info
+    // Get Customer Info Id's
     /*----------------------------------------*/
 
     @FXML
@@ -111,8 +108,6 @@ public class HelloController {
     private AnchorPane employeeInfoAP;
     /*----------------------------------------*/
 
-    NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-
 
     private Connection connection;
 
@@ -130,7 +125,9 @@ public class HelloController {
 
     }
 
+    // Changes the layout of the application base on which menu is chosen
     private void changeLayout(){
+        // Order Total Filter Layout
         orderTotalFilter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -138,9 +135,17 @@ public class HelloController {
                 orderDetailsAP.setVisible(false);
                 customerInfoAP.setVisible(false);
                 employeeInfoAP.setVisible(false);
+                customersTable.getItems().clear();
+                employeeNameTable.getItems().clear();
+                ordersDetailsTable.getItems().clear();
+                ordersTotalTable.getItems().clear();
+                orderTotalOrderNumberTF.clear();
+                orderNumberOrderDetailsTF.clear();
+                customerInfoTF.clear();
+                yearTF.clear();
             }
         });
-
+        // Order Details Filter Layout
         orderDetailsFilter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -148,33 +153,57 @@ public class HelloController {
                 orderDetailsAP.setVisible(true);
                 customerInfoAP.setVisible(false);
                 employeeInfoAP.setVisible(false);
+                customersTable.getItems().clear();
+                employeeNameTable.getItems().clear();
+                ordersDetailsTable.getItems().clear();
+                ordersTotalTable.getItems().clear();
+                orderTotalOrderNumberTF.clear();
+                orderNumberOrderDetailsTF.clear();
+                customerInfoTF.clear();
+                yearTF.clear();
             }
         });
-
-        customerInformationFilter.setOnAction(new EventHandler<ActionEvent>() {
+        // Customer Country Filter Layout
+        customerICountryFilter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 orderTotalAP.setVisible(false);
                 orderDetailsAP.setVisible(false);
                 customerInfoAP.setVisible(true);
                 employeeInfoAP.setVisible(false);
+                customersTable.getItems().clear();
+                employeeNameTable.getItems().clear();
+                ordersDetailsTable.getItems().clear();
+                ordersTotalTable.getItems().clear();
+                orderTotalOrderNumberTF.clear();
+                orderNumberOrderDetailsTF.clear();
+                customerInfoTF.clear();
+                yearTF.clear();
             }
         });
-
-        employeesFilter.setOnAction(new EventHandler<ActionEvent>() {
+        // Employees Birth Year Filter Layout
+        employeesBirthYearFilter.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 orderTotalAP.setVisible(false);
                 orderDetailsAP.setVisible(false);
                 customerInfoAP.setVisible(false);
                 employeeInfoAP.setVisible(true);
+                customersTable.getItems().clear();
+                employeeNameTable.getItems().clear();
+                ordersDetailsTable.getItems().clear();
+                ordersTotalTable.getItems().clear();
+                orderTotalOrderNumberTF.clear();
+                orderNumberOrderDetailsTF.clear();
+                customerInfoTF.clear();
+                yearTF.clear();
             }
         });
 
 
     }
 
-
+    // Creating Access to the Database
     private void createConnection() throws ClassNotFoundException{
         try{
             // load the database driver
@@ -188,24 +217,24 @@ public class HelloController {
         }
     }
 
-
+    // Filter by total
     @FXML
     protected void filterTotal() throws SQLException {
         ordersTotalTable.getItems().clear();
         int orderNumber = Integer.parseInt(orderTotalOrderNumberTF.getText());
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("Select orders.OrderID, Sum(Price * Quantity) from orders, orderdetails, products where orders.OrderID = '" + orderNumber + "' AND orderdetails.OrderID = orders.OrderID AND orderdetails.ProductID = products.ProductID");
+        ResultSet resultSet = statement.executeQuery("Select Sum(Price * Quantity) from orders, orderdetails, products where orders.OrderID = '" + orderNumber + "' AND orderdetails.OrderID = orders.OrderID AND orderdetails.ProductID = products.ProductID");
 
         while (resultSet.next()) {
-            totals.add(new Total(resultSet.getInt(1), resultSet.getDouble(2)));
+            totals.add(new Total(resultSet.getDouble(1)));
         }
 
-        orderTotalOrderNumberColumn.setCellValueFactory(new PropertyValueFactory<Total,Integer>("orderId"));
         orderTotalColumn.setCellValueFactory(new PropertyValueFactory<Total,Double>("total"));
         ordersTotalTable.setItems(totals);
     }
 
+    // Filter by Order Details
     @FXML
     protected void filterOrderDetails() throws SQLException {
         ordersDetailsTable.getItems().clear();
@@ -225,8 +254,9 @@ public class HelloController {
         ordersDetailsTable.setItems(orderDetails);
     }
 
+    // Filter by Customer Country
     @FXML
-    protected void filterCustomerByState() throws SQLException {
+    protected void filterCustomerByCountry() throws SQLException {
         customersTable.getItems().clear();
         String country = customerInfoTF.getText();
 
@@ -242,8 +272,9 @@ public class HelloController {
         customersTable.setItems(customerDetails);
     }
 
+    // Filter by Employee Birth Year
     @FXML
-    protected void filterCustomerByBirthYear() throws SQLException {
+    protected void filterEmployeeByBirthYear() throws SQLException {
         employeeNameTable.getItems().clear();
         String year = yearTF.getText();
 
@@ -259,9 +290,10 @@ public class HelloController {
         employeeNameTable.setItems(employeeDetails);
     }
 
-
+    // Closes the application
     @FXML
-    protected void exit(){
+    protected void exit() throws SQLException {
+        connection.close();
         System.exit(0);
     }
 }

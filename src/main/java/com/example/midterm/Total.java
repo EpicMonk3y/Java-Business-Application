@@ -1,20 +1,10 @@
 package com.example.midterm;
 
 public class Total{
-    private int orderId;
     private double total;
 
-    public Total(int orderId, double total){
-        this.orderId = orderId;
+    public Total(double total){
         this.total = total;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public double getTotal() {

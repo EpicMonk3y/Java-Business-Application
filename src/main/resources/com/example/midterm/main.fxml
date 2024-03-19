@@ -15,12 +15,12 @@
    <children>
       <MenuBar layoutY="-2.0" prefHeight="29.0" prefWidth="1001.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Filter">
+          <Menu mnemonicParsing="false" text="Filter By">
             <items>
               <MenuItem fx:id="orderTotalFilter" mnemonicParsing="false" text="Order Total" />
                   <MenuItem fx:id="orderDetailsFilter" mnemonicParsing="false" text="Order Details" />
-                  <MenuItem fx:id="customerInformationFilter" mnemonicParsing="false" text="Customer Information" />
-                  <MenuItem fx:id="employeesFilter" mnemonicParsing="false" text="Employees" />
+                  <MenuItem fx:id="customerICountryFilter" mnemonicParsing="false" text="Customer Country" />
+                  <MenuItem fx:id="employeesBirthYearFilter" mnemonicParsing="false" text="Employees Birth Year" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Exit">
@@ -41,13 +41,12 @@
                <content>
                   <TableView fx:id="ordersTotalTable" prefHeight="564.0" prefWidth="707.0">
                     <columns>
-                      <TableColumn fx:id="orderTotalOrderNumberColumn" prefWidth="125.0" text="Order Number" />
-                      <TableColumn fx:id="orderTotalColumn" prefWidth="87.0" text="Total" />
+                      <TableColumn fx:id="orderTotalColumn" prefWidth="159.0" text="Order Total" />
                     </columns>
                   </TableView>
                </content>
             </ScrollPane>
-            <Label layoutX="47.0" layoutY="31.0" text="Enter an Order Number" />
+            <Label layoutX="47.0" layoutY="32.0" text="Enter an Order Number" />
             <TextField fx:id="orderTotalOrderNumberTF" layoutX="35.0" layoutY="61.0" />
             <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterTotal" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
@@ -85,7 +84,7 @@
             </ScrollPane>
             <Label layoutX="68.0" layoutY="31.0" text="Enter a Country" />
             <TextField fx:id="customerInfoTF" layoutX="35.0" layoutY="61.0" />
-            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByState" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByCountry" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="employeeInfoAP" layoutY="27.0" prefHeight="591.0" prefWidth="1001.0" visible="false">
@@ -100,9 +99,9 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <Label layoutX="78.0" layoutY="30.0" text="Enter a Year" />
+            <Label layoutX="64.0" layoutY="30.0" text="Enter a Birth Year" />
             <TextField fx:id="yearTF" layoutX="35.0" layoutY="61.0" />
-            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterCustomerByBirthYear" prefHeight="25.0" prefWidth="69.0" text="Filter" />
+            <Button layoutX="75.0" layoutY="93.0" mnemonicParsing="false" onAction="#filterEmployeeByBirthYear" prefHeight="25.0" prefWidth="69.0" text="Filter" />
          </children>
       </AnchorPane>
    </children>
