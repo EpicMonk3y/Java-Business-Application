@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.*;
 
-public class HelloController {
+public class MainController {
     // Menu Items
     /*----------------------------------------*/
     @FXML
