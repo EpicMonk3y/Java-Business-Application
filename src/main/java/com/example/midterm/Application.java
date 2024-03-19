@@ -11,7 +11,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1001, 618);
-        stage.setTitle("Midterm!");
+        stage.setTitle("Midterm");
         stage.setScene(scene);
         stage.show();
     }
