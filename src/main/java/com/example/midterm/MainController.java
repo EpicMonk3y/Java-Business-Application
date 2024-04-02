@@ -279,7 +279,7 @@ public class MainController {
         String year = yearTF.getText();
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("Select FirstName, LastName from Northwind.employees where substring(BirthDate,1,4) = '" + year + "' order by LastName");
+        ResultSet resultSet = statement.executeQuery("Select FirstName, LastName from employees where substring(BirthDate,1,4) = '" + year + "' order by LastName");
 
         while (resultSet.next()) {
             employeeDetails.add(new EmployeeInfo(resultSet.getString(1), resultSet.getString(2)));
